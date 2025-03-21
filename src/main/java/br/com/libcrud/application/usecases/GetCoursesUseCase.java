@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static br.com.libcrud.domain.enums.Active.ACTIVE;
+import static br.com.libcrud.domain.enums.Active.INACTIVE;
+
 @Service
 @RequiredArgsConstructor
 public class GetCoursesUseCase implements UseCase<Void, List<ListCoursesDTO>> {
@@ -21,7 +24,7 @@ public class GetCoursesUseCase implements UseCase<Void, List<ListCoursesDTO>> {
                 .map(course -> ListCoursesDTO.builder()
                         .name(course.getName())
                         .category(course.getCategory())
-                        .active(course.getActive())
+                        .active(Boolean.TRUE.equals(course.getActive()) ? ACTIVE.getDescription() : INACTIVE.getDescription())
                         .created_at(course.getCreated_at())
                         .updated_at(course.getUpdated_at())
                         .build())
